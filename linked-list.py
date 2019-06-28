@@ -9,19 +9,24 @@ class Node:
 
 
 class LinkedList:
+    
+    COUNT = 0
 
     def __init__(self):
         self.head = None
         self.tail = None
+        self.COUNT = 0
 
     def add(self, item):
         # assign the first item to a Node which will be the head
         if self.head is None:
+            self.COUNT += 1
             self.head = Node(item)
             # initially also set the head to be the tail
             self.tail = self.head
 
         else:
+            self.COUNT += 1
             # assign the next item to the next Node following the tail
             self.tail.next = Node(item)
             # and make this item the new tail
@@ -32,6 +37,7 @@ class LinkedList:
             return "The list is empty"
         # If the elem in the first Node is the item, return it and set the next node to be the new head
         elif self.head.elem is item:
+            self.COUNT -= 1
             self.head = self.head.next
             return "Head removed "+str(item)
         else:
@@ -42,9 +48,13 @@ class LinkedList:
             if current_element.next is None:
                 return "Item is not in the list"
             else:
+                self.COUNT -= 1
                 # return the item and set the node to skip the node
                 current_element.next = current_element.next.next
                 return item
+            
+    def length(self):
+        return "Length: "+str(self.COUNT)
 
     def is_empty(self):
         if self.head is None:
